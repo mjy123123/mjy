@@ -1,0 +1,87 @@
+/* 简历岗位匹配 —— 页面专属样式（变量全部来自 ../base.css） */
+
+.sec {
+  margin: 28px 0 4px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.2px;
+}
+.sec-note { margin: 0 0 12px; line-height: 1.65; }
+
+/* ---------- 关键词标签组 ---------- */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.pills .pill { margin: 0 6px 6px 0; }
+
+button.pill.tap {
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+}
+button.pill.tap:active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: transparent;
+}
+
+/* ---------- 进度条 ---------- */
+.bar {
+  height: 8px;
+  margin: 10px 0 4px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), #6d3df5);
+  transition: width .45s cubic-bezier(.2, .8, .2, 1);
+}
+
+.pct {
+  flex: none;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 岗位卡片 ---------- */
+.role { margin-bottom: 12px; }
+.role strong { font-size: 16px; }
+
+.tip {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.label {
+  margin: 16px 0 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ---------- 搜索词分组 ---------- */
+.sgroup + .sgroup {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.sgroup > strong { display: block; font-size: 15px; }
+
+/* ---------- 顶部「改简历」按钮略微收窄 ---------- */
+.topbar .btn { min-height: 36px; padding: 6px 12px; font-size: 14px; }

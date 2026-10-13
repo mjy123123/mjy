@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>每日一课 · AI 产品经理</title>
+<meta name="description" content="每天一课 AI 产品经理知识，共 180 课，进度与笔记只存在本机。">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="每日一课">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/learn-180.png">
+
+<link rel="icon" type="image/png" sizes="192x192" href="../icons/learn-192.png">
+<link rel="manifest" href="./manifest.webmanifest">
+
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0f1a" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="./learn.css">
+</head>
+<body class="app">
+
+<header class="topbar">
+  <a class="back" href="../" aria-label="返回">‹</a>
+  <h1 id="pageTitle">每日一课</h1>
+  <button id="todayBtn" class="btn ghost small-btn" type="button" hidden>回到今天</button>
+</header>
+
+<main class="wrap" id="main">
+
+  <!-- ============ 今日 ============ -->
+  <section id="viewToday" class="view">
+    <div id="todayBody"></div>
+  </section>
+
+  <!-- ============ 存档 ============ -->
+  <section id="viewArchive" class="view" hidden>
+    <div class="card" id="archiveStat"></div>
+    <h2 class="sec">按天存档</h2>
+    <p class="muted small sec-note">从第一天到今天，每天推的是哪一课都在这里。漏了哪天点回去补就行。</p>
+    <div id="archiveList"></div>
+  </section>
+
+  <!-- ============ 全部 ============ -->
+  <section id="viewAll" class="view" hidden>
+    <p class="muted small sec-note" style="margin-top:4px">
+      180 课按 5 个模块分组。每日推送是模块轮转的，不会连着 36 天只讲技术。
+    </p>
+    <div id="allBody"></div>
+  </section>
+
+  <!-- ============ 我的 ============ -->
+  <section id="viewMine" class="view" hidden>
+    <div class="card" id="mineStat"></div>
+
+    <h2 class="sec">各模块进度</h2>
+    <div class="card" id="moduleProgress"></div>
+
+    <h2 class="sec">我的收藏 <span class="count" id="favCount"></span></h2>
+    <div class="card" id="favList"></div>
+
+    <h2 class="sec">我的笔记 <span class="count" id="noteCount"></span></h2>
+    <div id="noteList"></div>
+
+    <h2 class="sec">数据</h2>
+    <div class="card">
+      <p class="muted small" style="margin-top:0">
+        进度、收藏、笔记全部只存在这台手机上，不会上传到任何服务器。
+        换手机或清理 Safari 数据会丢，<b>建议定期导出</b>。
+      </p>
+      <button id="exportBtn" class="btn block" type="button">导出全部数据（.json）</button>
+      <button id="importBtn" class="btn block" type="button" style="margin-top:8px">从备份导入…</button>
+      <input id="fileInput" type="file" accept=".json,application/json" hidden>
+      <button id="resetBtn" class="btn block danger" type="button" style="margin-top:8px">重置全部进度</button>
+    </div>
+
+    <p class="disclaimer muted small">
+      课程内容为通用行业知识整理，不构成任何专业建议。
+    </p>
+  </section>
+
+</main>
+
+<!-- ============ 底部标签栏 ============ -->
+<nav class="tabbar" id="tabbar">
+  <button class="tab on" type="button" data-tab="today">
+    <span class="tab-ico">▤</span><span class="tab-txt">今日</span>
+  </button>
+  <button class="tab" type="button" data-tab="archive">
+    <span class="tab-ico">☰</span><span class="tab-txt">存档</span>
+  </button>
+  <button class="tab" type="button" data-tab="all">
+    <span class="tab-ico">▦</span><span class="tab-txt">全部</span>
+  </button>
+  <button class="tab" type="button" data-tab="mine">
+    <span class="tab-ico">◍</span><span class="tab-txt">我的</span>
+  </button>
+</nav>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="./course-data.js" defer></script>
+<script src="./learn.js" defer></script>
+</body>
+</html>

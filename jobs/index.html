@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>简历岗位匹配</title>
+<meta name="description" content="粘贴简历，看看适合投什么岗位；再粘一条 JD，看匹配度多少。">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="岗位匹配">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/jobs-180.png">
+
+<link rel="icon" type="image/png" sizes="192x192" href="../icons/jobs-192.png">
+<link rel="manifest" href="./manifest.webmanifest">
+
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0f1a" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="./jobs.css">
+</head>
+<body class="app">
+
+<header class="topbar">
+  <a class="back" href="../" aria-label="返回">‹</a>
+  <h1>简历岗位匹配</h1>
+  <button id="editBtn" class="btn ghost" type="button" hidden>改简历</button>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ 输入简历 ============ -->
+  <section id="inputPane">
+    <div class="card">
+      <p class="muted small" style="margin-top:0">
+        把简历内容整段粘贴进来就行，纯文本、不用排版。
+        没有现成简历的话，直接把你的工作经历、用过的工具、拿过的证书写上来也可以。
+      </p>
+
+      <label class="field">
+        <span>简历内容</span>
+        <textarea id="resume" placeholder="例：
+2019.07 - 2023.05  XX科技有限公司  前端开发工程师
+· 负责电商中台 Vue 项目开发，独立完成订单与售后模块
+· 主导首屏性能优化，加载时间从 3.4s 降到 1.2s
+· 熟悉 TypeScript、Webpack、Vite，有小程序开发经验
+技能：JavaScript、Vue、React、Node.js、MySQL
+证书：软件设计师（中级）"></textarea>
+      </label>
+
+      <label class="field">
+        <span>期望城市（可选，用来生成搜索词）</span>
+        <input id="city" type="text" placeholder="如：杭州" autocomplete="off">
+      </label>
+
+      <button id="analyzeBtn" class="btn primary block" type="button">开始分析</button>
+
+      <p class="muted small" style="margin:12px 0 0">
+        🔒 简历只保存在这台手机上，不会上传到任何服务器。按 <b>Ctrl/⌘ + Enter</b> 也能开始。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 分析结果 ============ -->
+  <section id="resultPane" hidden>
+
+    <div class="card" id="profileCard"></div>
+
+    <h2 class="sec">推荐投递方向</h2>
+    <p class="muted small sec-note">
+      按你简历里的关键词命中强度排序。这是本地关键词词典的粗略匹配，不是 AI 判断，只用来定投递方向。
+    </p>
+    <div id="roleList"></div>
+    <button id="copyReport" class="btn block" type="button">复制完整分析报告</button>
+
+    <h2 class="sec">这条 JD 我匹配多少？</h2>
+    <p class="muted small sec-note">
+      把想投的岗位描述整段粘进来，会告诉你哪些要求你已有、哪些是缺口。
+    </p>
+    <div class="card">
+      <label class="field" style="margin-bottom:10px">
+        <span>岗位描述（JD）</span>
+        <textarea id="jd" style="min-height:120px" placeholder="把招聘网站上的岗位描述整段复制粘贴到这里…"></textarea>
+      </label>
+      <button id="jdBtn" class="btn block" type="button">对比这条 JD</button>
+    </div>
+    <div id="jdResult"></div>
+
+    <h2 class="sec">拿去招聘平台搜</h2>
+    <p class="muted small sec-note">
+      点任意一个词就复制，直接粘到 BOSS 直聘 / 猎聘 / 智联的搜索框。
+    </p>
+    <div class="card" id="searchCard"></div>
+
+    <p class="muted small center" style="margin:26px 0 0">
+      匹配结果是关键词估算，仅供参考 · 不会替你做任何决定
+    </p>
+  </section>
+
+</main>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="./roles.js" defer></script>
+<script src="./jobs.js" defer></script>
+</body>
+</html>

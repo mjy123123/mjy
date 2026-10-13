@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>我的工具箱</title>
+<meta name="description" content="只属于我自己的三个小应用，离线可用，数据只存在本机。">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="工具箱">
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/home-180.png">
+
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/home-192.png">
+<link rel="manifest" href="./manifest.webmanifest">
+
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0f1a" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="stylesheet" href="./base.css">
+<link rel="stylesheet" href="./home.css">
+</head>
+<body class="app">
+
+<header class="topbar">
+  <h1>我的工具箱</h1>
+</header>
+
+<main class="wrap">
+
+  <p class="muted small" style="margin:2px 0 18px">
+    三个小应用，全部离线可用，数据只存在这台手机里。
+  </p>
+
+  <nav class="tools">
+
+    <a class="tool" href="./answer/">
+      <span class="tool-icon"><img src="./icons/answer-192.png" alt="" width="48" height="48"></span>
+      <span class="tool-text">
+        <strong>答案之书</strong>
+        <em>心里想一个问题，翻开它</em>
+      </span>
+      <span class="chev">›</span>
+    </a>
+
+    <a class="tool" href="./fortune/">
+      <span class="tool-icon"><img src="./icons/fortune-192.png" alt="" width="48" height="48"></span>
+      <span class="tool-text">
+        <strong>每日运势</strong>
+        <em>按你的生日定制，每天固定一份</em>
+      </span>
+      <span class="chev">›</span>
+    </a>
+
+    <a class="tool" href="./jobs/">
+      <span class="tool-icon"><img src="./icons/jobs-192.png" alt="" width="48" height="48"></span>
+      <span class="tool-text">
+        <strong>简历岗位匹配</strong>
+        <em>看你的简历适合投什么岗位</em>
+      </span>
+      <span class="chev">›</span>
+    </a>
+
+    <a class="tool" href="./learn/">
+      <span class="tool-icon"><img src="./icons/learn-192.png" alt="" width="48" height="48"></span>
+      <span class="tool-text">
+        <strong>每日一课</strong>
+        <em>AI 产品经理 180 课，带存档和笔记</em>
+      </span>
+      <span class="chev">›</span>
+    </a>
+
+  </nav>
+
+  <div class="card install-tip">
+    <strong>装到主屏幕</strong>
+    <p class="muted small">
+      用 <b>Safari</b> 打开本页 → 点底部「分享」→「添加到主屏幕」，就是一个全屏 App。<br>
+      想要单独一个图标：先进入某个工具页面，再「添加到主屏幕」，那个图标会直接打开该工具。
+    </p>
+  </div>
+
+  <p class="muted small center" style="margin-top:22px">
+    无账号 · 无服务器 · 不联网也能用
+  </p>
+
+</main>
+
+<script>
+  // 首页也注册同一个 Service Worker（相对路径，兼容子目录部署）
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('./sw.js').catch(function () {});
+    });
+  }
+</script>
+</body>
+</html>

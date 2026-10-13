@@ -1,0 +1,352 @@
+/* ============================================================
+   fortune.css —— 每日运势专属样式
+   只写本页特有的东西；变量、顶栏、按钮、卡片、表单、pill
+   全部复用 ../base.css。
+   ============================================================ */
+
+:root {
+  --star: #f59e0b;          /* 与本应用 theme_color 一致 */
+  --good: #12a150;
+  --bad: #e5484d;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --star: #fbbf24;
+    --good: #35c46f;
+    --bad: #ff6369;
+  }
+}
+
+.wrap > section > * + * { margin-top: 12px; }
+
+.small-btn {
+  min-height: 34px;
+  padding: 4px 12px;
+  font-size: 14px;
+  flex: none;
+}
+
+.card-title {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+/* ---------- 资料表单 ---------- */
+.intro { margin: 0 0 16px; }
+.note { margin: 14px 0 0; line-height: 1.7; }
+
+/* ---------- 日期切换 ---------- */
+.daybar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.day-btn {
+  min-height: 40px;
+  padding: 6px 8px;
+  font-size: 15px;
+  border-radius: 11px;
+  color: var(--muted);
+}
+.day-btn.on {
+  border-color: transparent;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ---------- 头部信息 ---------- */
+.head-card { background: var(--surface); }
+.head-date {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: .3px;
+}
+.head-line {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+}
+.head-hello { margin-top: 4px; }
+
+/* ---------- 总评星级 ---------- */
+.stars {
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: 5px;
+  color: var(--star);
+}
+.verdict {
+  margin: 12px 0 0;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* ---------- 分项评分进度条 ---------- */
+.score-row + .score-row { margin-top: 14px; }
+.score-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14.5px;
+}
+.score-num {
+  color: var(--muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.bar {
+  display: block;
+  width: 100%;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width .28s ease;
+}
+
+/* 按分数分档换色（避免在 JS 里写内联颜色） */
+.bar-fill[data-band="low"] { background: var(--bad); }
+.bar-fill[data-band="mid"] { background: var(--star); }
+.bar-fill[data-band="high"] { background: var(--ok); }
+
+/* ---------- 宜 / 忌 ---------- */
+.duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.duo .card { padding: 14px; }
+.duo .card-title { margin-bottom: 10px; }
+.good .card-title { color: var(--good); }
+.bad .card-title { color: var(--bad); }
+.good { border-color: color-mix(in srgb, var(--good) 26%, var(--line)); }
+.bad { border-color: color-mix(in srgb, var(--bad) 26%, var(--line)); }
+
+.pills { line-height: 1.9; }
+.pills .pill { margin: 0 6px 6px 0; }
+.good .pill { background: color-mix(in srgb, var(--good) 14%, var(--surface-2)); }
+.bad .pill { background: color-mix(in srgb, var(--bad) 14%, var(--surface-2)); }
+
+/* ---------- 幸运指数 ---------- */
+.luck {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.luck-cell {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  min-width: 0;
+}
+.luck-label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.luck-value {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 15px;
+  font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.luck-dot {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 18px; height: 18px;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+.swatch {
+  flex: none;
+  display: inline-block;
+  width: 16px; height: 16px;
+  border-radius: 5px;
+  border: 1px solid var(--line);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18);
+}
+.swatch-lg { width: 18px; height: 18px; border-radius: 6px; }
+
+/* ---------- 建议 ---------- */
+.advice {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+/* ---------- 免责 ---------- */
+.disclaimer {
+  margin: 18px 0 0;
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   以下为「真实历法 / 星盘」区块
+   ============================================================ */
+
+/* ---------- 星级：分开控制点亮与未点亮 ---------- */
+.stars .star { color: var(--line); }
+.stars .star.on { color: var(--star); }
+
+/* ---------- 小标签 ---------- */
+.tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface-2));
+  color: var(--accent);
+  font-size: 11.5px;
+  font-weight: 600;
+  vertical-align: 2px;
+}
+.pill.zod { border: 1px dashed color-mix(in srgb, var(--muted) 45%, transparent); }
+
+/* ---------- 历法列表 ---------- */
+.alm { display: block; }
+.alm-row {
+  display: flex;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.alm-row:last-child { border-bottom: 0; }
+.alm-k {
+  flex: none;
+  width: 5.4em;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.alm-v {
+  flex: 1;
+  min-width: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  word-break: break-word;
+}
+.alm-hint {
+  margin-left: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ---------- 日 / 月 / 上升 ---------- */
+.chart {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  text-align: center;
+}
+.triple {
+  padding: 12px 4px;
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+.triple-k { font-size: 12.5px; color: var(--muted); }
+.triple-v {
+  margin: 4px 0 3px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -.2px;
+}
+.triple-s { line-height: 1.4; }
+
+/* ---------- 星座档案 ---------- */
+.sep { height: 1px; background: var(--line); margin: 16px 0; }
+.sign-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.sign-badge {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -.2px;
+}
+.sign-meta { line-height: 1.4; }
+.traits { margin-bottom: 4px; }
+.trait-line {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+.trait-line b {
+  display: inline-block;
+  min-width: 3.2em;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.pair-k {
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ---------- 来源说明 ---------- */
+.src { margin: 10px 0 0; line-height: 1.65; }
+
+details.why { padding: 0; }
+details.why > summary {
+  padding: 15px 16px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  list-style: none;
+}
+details.why > summary::-webkit-details-marker { display: none; }
+details.why > summary::after {
+  content: '＋';
+  float: right;
+  color: var(--muted);
+  font-weight: 400;
+}
+details.why[open] > summary::after { content: '－'; }
+.why-body {
+  padding: 0 16px 16px;
+  line-height: 1.75;
+}
+.why-body p { margin: 12px 0 6px; }
+.why-body ul { margin: 0; padding-left: 1.15em; }
+.why-body li { margin: 5px 0; }
+.why-body b { color: var(--text); }
+
+/* ---------- 窄屏微调 ---------- */
+@media (max-width: 340px) {
+  .duo, .luck { grid-template-columns: 1fr; }
+  .head-line { font-size: 20px; }
+  .stars { font-size: 26px; letter-spacing: 3px; }
+  .chart { grid-template-columns: 1fr; }
+  .pair { grid-template-columns: 1fr; }
+  .alm-k { width: 4.6em; }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "每日运势",
+  "short_name": "每日运势",
+  "description": "真实历法（干支、节气、月相、星盘）+ 你自己星座的专属文案，每天固定一份。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f6f8",
+  "theme_color": "#f59e0b",
+  "icons": [
+    { "src": "../icons/fortune-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "../icons/fortune-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "../icons/fortune-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

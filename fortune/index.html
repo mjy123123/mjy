@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>每日运势</title>
+<meta name="description" content="真实历法 + 星座专属文案，每天固定一份。离线可用。">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="每日运势">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/fortune-180.png">
+
+<link rel="icon" type="image/png" sizes="192x192" href="../icons/fortune-192.png">
+<link rel="manifest" href="./manifest.webmanifest">
+
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0f1a" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="./fortune.css">
+</head>
+<body class="app">
+
+<header class="topbar">
+  <a class="back" href="../" aria-label="返回">‹</a>
+  <h1>每日运势</h1>
+  <button class="btn ghost small-btn" type="button" id="editBtn" hidden>改资料</button>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= 首次进入：填写资料 ================= -->
+  <section id="setupView" hidden>
+    <div class="card">
+      <h2 class="card-title">先填一下你的资料</h2>
+      <p class="muted small intro">
+        只存在这台设备上，不会上传到任何地方。
+      </p>
+
+      <form id="setupForm" novalidate>
+        <label class="field">
+          <span>昵称</span>
+          <input type="text" id="nameInput" maxlength="20" autocomplete="nickname"
+                 placeholder="例如：小林" required>
+        </label>
+
+        <label class="field">
+          <span>出生日期</span>
+          <input type="date" id="birthInput" min="1900-01-01" required>
+        </label>
+
+        <label class="field">
+          <span>出生时间（可留空，但填了才算得出上升星座）</span>
+          <input type="time" id="timeInput">
+        </label>
+
+        <label class="field">
+          <span>出生地（算上升星座用）</span>
+          <select id="citySelect"></select>
+        </label>
+
+        <button class="btn primary block" type="submit">生成我的运势</button>
+      </form>
+
+      <p class="muted small note">
+        太阳星座按出生月日推；生肖按出生年份推（春节前后可能差一位）；
+        月亮星座和上升星座按真实天文算法算，上升星座每两小时左右换一个，
+        <b>所以出生时间越准越好</b>。
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= 运势主体 ================= -->
+  <section id="fortuneView" hidden>
+
+    <div class="daybar" id="daybar" role="group" aria-label="切换日期">
+      <button class="btn day-btn" type="button" data-offset="-1">昨天</button>
+      <button class="btn day-btn" type="button" data-offset="0">今天</button>
+      <button class="btn day-btn" type="button" data-offset="1">明天</button>
+    </div>
+
+    <div class="card head-card">
+      <div class="head-date" id="headDate"></div>
+      <div class="head-line" id="headLine"></div>
+      <div class="head-hello muted small" id="headHello"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">今日总评</h2>
+      <div class="stars" id="stars" aria-label="今日总评星级"></div>
+      <p class="verdict" id="verdict"></p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">分项评分</h2>
+      <div class="scores" id="scores"></div>
+    </div>
+
+    <div class="duo">
+      <div class="card good">
+        <h2 class="card-title">宜</h2>
+        <div class="pills" id="goodList"></div>
+      </div>
+      <div class="card bad">
+        <h2 class="card-title">忌</h2>
+        <div class="pills" id="badList"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">幸运指数</h2>
+      <div class="luck" id="luck"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">今日建议</h2>
+      <p class="advice" id="advice"></p>
+      <p class="src muted small" id="adviceSrc"></p>
+    </div>
+
+    <!-- ---------- 真实历法 ---------- -->
+    <div class="card">
+      <h2 class="card-title">今日历法 <span class="tag">真实推算</span></h2>
+      <div class="alm" id="almList"></div>
+      <p class="src muted small" id="termNote"></p>
+    </div>
+
+    <!-- ---------- 星盘 ---------- -->
+    <div class="card">
+      <h2 class="card-title">你的星盘 <span class="tag">真实推算</span></h2>
+      <div class="chart" id="chartTriple"></div>
+      <p class="src muted small" id="chartNote"></p>
+
+      <div class="sep"></div>
+
+      <div class="sign-head">
+        <span class="sign-badge" id="signBadge"></span>
+        <span class="sign-meta muted small" id="signMeta"></span>
+      </div>
+      <div class="pills traits" id="traits"></div>
+      <p class="trait-line"><b>长处</b> <span id="strength"></span></p>
+      <p class="trait-line"><b>软肋</b> <span id="weakness"></span></p>
+
+      <div class="sep"></div>
+
+      <div class="pair">
+        <div>
+          <div class="pair-k">合得来</div>
+          <div class="pills" id="bestMatch"></div>
+        </div>
+        <div>
+          <div class="pair-k">要多花点心思</div>
+          <div class="pills" id="worstMatch"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- 数据来源说明 ---------- -->
+    <details class="why card">
+      <summary>这些数字是怎么来的？为什么没有黄历宜忌？</summary>
+      <div class="why-body muted small">
+        <p><b>是真的算出来的（不是随机数）：</b></p>
+        <ul>
+          <li><b>干支纪年 / 月 / 日</b>——六十甲子连续循环，立春换年、节气换月</li>
+          <li><b>二十四节气交接时刻</b>——太阳视黄经求根</li>
+          <li><b>月相与朔望</b>——月亮黄经减太阳黄经</li>
+          <li><b>二十八宿值日</b>——28 日连续循环，与黄历对照一致</li>
+          <li><b>冲煞</b>——地支六冲 + 三合局</li>
+          <li><b>彭祖百忌</b>——十干十二支固定表</li>
+          <li><b>太阳 / 月亮 / 上升星座</b>——恒星时、黄赤交角、黄经分区</li>
+        </ul>
+        <p>与日本国立天文台《暦要項》2024 年数据逐项对账：<b>朔望最大误差 2 分钟，节气最大误差 8 分钟</b>；干支、二十八宿、冲煞、彭祖百忌全部一致。</p>
+
+        <p><b>刻意没有做的：</b></p>
+        <ul>
+          <li><b>黄历宜忌</b>——查了两个黄历来源，同一天的结果<b>互相矛盾</b>（一家说宜入宅动土、忌嫁娶安葬，另一家正好相反）。它不是可计算的真值，是各家择日流派的取舍，所以不做。</li>
+          <li><b>建除十二神</b>——按《协纪辨方书》「月建上起建」的规则，和主流商业黄历差一天（它们用了不同的月建口径）。与其给一个和黄历对不上的数字，不如不给。</li>
+        </ul>
+
+        <p><b>至于运势好坏本身：</b>星座运势没有可计算的真值，真人写的运势也是编的。
+        这里能做的是让它<b>有依据、有体系</b>——文案取自你所属星座的专属内容池（四象、守护星、性格特质），
+        而不是所有星座共用一套通用话术。但它<b>不会因此变准</b>，仍然是娱乐。</p>
+      </div>
+    </details>
+
+    <p class="disclaimer muted small">
+      本页的历法与天文数据由本地算法实时推算；运势部分为设计好的娱乐内容，不构成任何建议。
+    </p>
+
+  </section>
+
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="./almanac.js" defer></script>
+<script src="./signs-data.js" defer></script>
+<script src="./fortune.js" defer></script>
+</body>
+</html>

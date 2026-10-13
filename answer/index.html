@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>答案之书</title>
+<meta name="description" content="心里想一个问题，翻开它。离线可用，不保存任何内容。">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="答案之书">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/answer-180.png">
+
+<link rel="icon" type="image/png" sizes="192x192" href="../icons/answer-192.png">
+<link rel="manifest" href="./manifest.webmanifest">
+
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0f1a" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="./answer.css">
+</head>
+<body class="app">
+
+<header class="topbar">
+  <a class="back" href="../" aria-label="返回">‹</a>
+  <h1>答案之书</h1>
+</header>
+
+<main class="wrap">
+
+  <section id="ask" class="stack">
+
+    <label class="field question">
+      <span>问题（可以不填，只是写给自己看）</span>
+      <input id="q" type="text" maxlength="80" autocomplete="off"
+             placeholder="比如：这件事还要继续吗？">
+    </label>
+
+    <div id="book" class="book">
+      <p class="book-name">《答案之书》</p>
+      <p class="book-hint muted">心里默想一个问题，然后翻开</p>
+    </div>
+
+    <button id="open" class="btn primary block open-btn" type="button">翻开</button>
+
+    <p class="muted small center">问题只显示在屏幕上，不会被保存，刷新即忘。</p>
+
+    <div class="shake">
+      <button id="shake" class="btn ghost block" type="button">开启摇一摇</button>
+      <p id="shake-state" class="muted small center">开启后摇一摇手机，也能抽一条。</p>
+    </div>
+
+  </section>
+
+  <section id="answer" class="stack" hidden>
+
+    <div class="book-page">
+      <p id="text" class="answer-text"></p>
+      <p class="answer-tag"><span id="tag" class="pill"></span></p>
+    </div>
+
+    <div class="ops">
+      <button id="again" class="btn primary" type="button">再问一次</button>
+      <button id="close" class="btn" type="button">合上</button>
+    </div>
+
+  </section>
+
+  <p class="muted small center footer-note">仅供娱乐与自我对话，不构成任何建议。</p>
+
+</main>
+
+<script src="./answer.js" defer></script>
+</body>
+</html>

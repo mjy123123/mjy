@@ -1,0 +1,33 @@
+# Cloudflare Pages / Netlify 都读这个文件。
+# 目的：sw.js 永不被缓存（否则手机上永远更新不了），manifest 的 MIME 类型正确。
+
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/index.html
+  Cache-Control: no-cache
+
+/answer/index.html
+  Cache-Control: no-cache
+
+/fortune/index.html
+  Cache-Control: no-cache
+
+/jobs/index.html
+  Cache-Control: no-cache
+
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: no-cache
+
+/answer/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: no-cache
+
+/fortune/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: no-cache
+
+/jobs/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: no-cache

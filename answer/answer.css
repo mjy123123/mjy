@@ -1,0 +1,91 @@
+/* ============================================================
+   answer.css —— 答案之书自己的样式
+   只用 base.css 里的 CSS 变量，自动适配深色模式。
+   ============================================================ */
+
+/* ---------- 合上：问题输入 ---------- */
+.question > span { text-align: center; }
+.question input { text-align: center; }
+
+/* ---------- 书封面 ---------- */
+.book {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 20px 36px;
+  border-radius: 20px;
+  background: linear-gradient(160deg, var(--accent) 0%, #6d3df5 100%);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 14px 30px rgba(47, 109, 246, .18);
+}
+.book::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: rgba(255, 255, 255, .35);
+}
+.book-name {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.book-hint { margin: 10px 0 0; color: rgba(255, 255, 255, .88); }
+
+/* 翻开时的翻页感：靠 animation，不用 transition（隐藏元素不会触发过渡） */
+.book.flip { animation: flipIn .34s ease; }
+
+.open-btn { min-height: 54px; font-size: 17px; letter-spacing: 2px; }
+
+/* ---------- 摇一摇 ---------- */
+.shake { margin-top: 26px; }
+.shake .btn { margin-bottom: 8px; }
+.shake[hidden] { display: none !important; }
+
+/* ---------- 翻开：书页与答案 ---------- */
+.book-page {
+  padding: 44px 20px 40px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  text-align: center;
+}
+.answer-text {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 1px;
+  word-break: break-word;
+  animation: textIn .36s ease;
+}
+.answer-tag { margin: 20px 0 0; }
+.answer-tag .pill { margin: 0; }
+
+.ops { display: flex; gap: 12px; }
+.ops .btn { flex: 1; }
+
+.footer-note { margin: 26px 0 0; }
+
+/* ---------- 动画 ---------- */
+@keyframes flipIn {
+  from { opacity: .55; transform: perspective(700px) rotateY(-12deg) translateY(6px); }
+  to   { opacity: 1;   transform: perspective(700px) rotateY(0deg) translateY(0); }
+}
+@keyframes textIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book.flip, .answer-text { animation: none; }
+}
+
+/* ---------- 小屏微调 ---------- */
+@media (max-width: 360px) {
+  .book-name { font-size: 22px; }
+  .answer-text { font-size: 24px; }
+}
