@@ -21,6 +21,7 @@
 
 <link rel="stylesheet" href="../base.css">
 <link rel="stylesheet" href="./fortune.css">
+<link rel="stylesheet" href="./cities.css">
 </head>
 <body class="app">
 
@@ -57,10 +58,28 @@
           <input type="time" id="timeInput">
         </label>
 
-        <label class="field">
+        <div class="field">
           <span>出生地（算上升星座用）</span>
-          <select id="citySelect"></select>
-        </label>
+          <input type="text" id="cityInput" placeholder="输入城市名搜索，例如：杭州"
+                 autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <div class="city-hits" id="cityHits" hidden></div>
+          <div class="city-chosen" id="cityChosen"></div>
+          <details class="city-manual">
+            <summary>找不到我的城市？手动填经纬度</summary>
+            <div class="row2">
+              <label class="field"><span>纬度</span>
+                <input type="number" id="latInput" step="0.01" min="-90" max="90"
+                       placeholder="39.90" inputmode="decimal"></label>
+              <label class="field"><span>经度</span>
+                <input type="number" id="lonInput" step="0.01" min="-180" max="180"
+                       placeholder="116.41" inputmode="decimal"></label>
+            </div>
+            <p class="muted small manual-tip">
+              手机地图上长按地点就能看到经纬度（前一个是纬度，后一个是经度）。
+              差半度对上升星座几乎没有影响，填个大概就行。
+            </p>
+          </details>
+        </div>
 
         <button class="btn primary block" type="submit">生成我的运势</button>
       </form>
@@ -197,6 +216,8 @@
 <div class="toast" id="toast" hidden></div>
 
 <script src="./almanac.js" defer></script>
+<script src="./cities.js" defer></script>
+<script src="./citykit.js" defer></script>
 <script src="./signs-data.js" defer></script>
 <script src="./fortune.js" defer></script>
 </body>

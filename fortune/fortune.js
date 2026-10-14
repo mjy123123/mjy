@@ -115,8 +115,9 @@
     return ymdStr(t.y, t.m, t.d);
   }
   function cityByName(name) {
+    if (!name) return null;
     for (var i = 0; i < CITIES.length; i++) if (CITIES[i].name === name) return CITIES[i];
-    return CITIES[0];
+    return null;
   }
 
   /* ---------------- 出生时刻与星盘 ---------------- */
@@ -129,10 +130,26 @@
     return A.jdn(b[0], b[1], b[2]) - 0.5 + (hh - TZ) / 24;
   }
 
+  /* 解析出生地：优先用存的经纬度，其次按城市名查完整城市表，最后查内置兜底表 */
+  function placeOf(p) {
+    if (p && isFinite(p.lat) && isFinite(p.lon)) {
+      return { name: p.city || '自定义地点', lat: Number(p.lat), lon: Number(p.lon) };
+    }
+    if (p && p.city) {
+      if (window.CityKit) {
+        var hit = window.CityKit.lookup(p.city);
+        if (hit) return { name: hit.name, lat: hit.lat, lon: hit.lon };
+      }
+      var old = cityByName(p.city);
+      if (old) return { name: old.name, lat: old.lat, lon: old.lon };
+    }
+    return null;
+  }
+
   function chartOf(p) {
     var JD = birthJD(p);
     var hasTime = !!p.time;
-    var city = cityByName(p.city);
+    var place = placeOf(p);
 
     var sunLon = A.sunLongitude(JD);
     var moonLon = A.moonLongitude(JD);
@@ -143,15 +160,17 @@
       moonApprox: !hasTime,
       asc: null,
       ascNote: '',
-      latitude: city.lat,
-      longitude: city.lon,
-      cityName: city.name
+      latitude: place ? place.lat : null,
+      longitude: place ? place.lon : null,
+      cityName: place ? place.name : ''
     };
 
-    if (hasTime) {
-      out.asc = A.ascendant(JD, city.lat, city.lon).sign;
-    } else {
+    if (!hasTime) {
       out.ascNote = '没填出生时间，算不出上升星座（它每两小时左右换一个）。';
+    } else if (!place) {
+      out.ascNote = '没填出生地，算不出上升星座。点「改资料」补一下就有。';
+    } else {
+      out.asc = A.ascendant(JD, place.lat, place.lon).sign;
     }
     return out;
   }
@@ -233,7 +252,8 @@
      ============================================================ */
   var els = {};
   ['setupView', 'fortuneView', 'setupForm', 'nameInput', 'birthInput',
-   'timeInput', 'citySelect', 'editBtn', 'daybar', 'headDate', 'headLine',
+   'timeInput', 'cityInput', 'cityHits', 'cityChosen', 'latInput', 'lonInput',
+   'editBtn', 'daybar', 'headDate', 'headLine',
    'headHello', 'stars', 'verdict', 'scores', 'goodList', 'badList', 'luck',
    'advice', 'adviceSrc', 'almList', 'termNote', 'chartTriple', 'chartNote',
    'signBadge', 'signMeta', 'traits', 'strength', 'weakness', 'bestMatch',
@@ -273,15 +293,12 @@
   }
 
   function initCitySelect() {
-    var sel = $('citySelect');
-    if (!sel || sel.options.length) return;
-    CITIES.forEach(function (c) {
-      var o = document.createElement('option');
-      o.value = c.name;
-      o.textContent = c.name;
-      sel.appendChild(o);
-    });
-    sel.value = '北京';
+    if (window.CityKit) {
+      window.CityKit.init({
+        input: 'cityInput', hits: 'cityHits', chosen: 'cityChosen',
+        lat: 'latInput', lon: 'lonInput'
+      });
+    }
   }
 
   /* ---------------- 视图切换 ---------------- */
@@ -294,7 +311,7 @@
       $('nameInput').value = prefill.name || '';
       $('birthInput').value = prefill.birthday || '';
       $('timeInput').value = prefill.time || '';
-      if (prefill.city) $('citySelect').value = prefill.city;
+      if (window.CityKit) window.CityKit.restore(prefill);
     }
     $('birthInput').max = todayStr();
   }
@@ -522,7 +539,7 @@
       var name = $('nameInput').value.trim();
       var birthday = $('birthInput').value;
       var time = $('timeInput').value;
-      var city = $('citySelect').value;
+      var place = window.CityKit ? window.CityKit.resolve() : null;
 
       if (!name) { toast('请先填一个昵称'); return; }
       if ([].slice.call(name).length > 20) { toast('昵称太长了，20 字以内'); return; }
@@ -530,10 +547,15 @@
       if (birthday > todayStr()) { toast('出生日期不能晚于今天'); return; }
       if (time && !/^\d{2}:\d{2}$/.test(time)) { toast('出生时间格式不对'); return; }
 
-      var p = { name: name, birthday: birthday, time: time, city: city };
+      var p = {
+        name: name, birthday: birthday, time: time,
+        city: place ? place.name : '',
+        lat: place ? place.lat : null,
+        lon: place ? place.lon : null
+      };
       saveProfile(p);
       showFortune(p, todayStr());
-      toast('已生成，同一天结果不会变');
+      toast(place ? '已生成，同一天结果不会变' : '已生成（没选出生地，上升星座暂时算不出）');
     });
 
     $('editBtn').addEventListener('click', function () {

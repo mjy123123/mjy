@@ -1,0 +1,61 @@
+/* ============================================================
+   fortune-cities.css 的一部分 —— 出生地搜索框
+   （直接追加在 fortune.css 末尾也可，这里单列便于查看）
+   ============================================================ */
+
+.city-hits {
+  margin-top: 6px;
+  max-height: 246px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.city-hit {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 11px 13px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+.city-hit:last-child { border-bottom: 0; }
+.city-hit:active { background: var(--surface-2); }
+.city-hit b { font-weight: 600; font-size: 15px; }
+.city-hit span { color: var(--muted); font-size: 12.5px; }
+.city-hit em {
+  margin-left: auto;
+  font-style: normal;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+.city-empty { padding: 12px 13px; color: var(--muted); font-size: 13.5px; }
+
+.city-chosen {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--muted);
+  min-height: 1.2em;
+}
+.city-chosen.on { color: var(--accent); }
+
+.city-manual { margin-top: 12px; }
+.city-manual > summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--accent);
+  list-style: none;
+}
+.city-manual > summary::-webkit-details-marker { display: none; }
+.city-manual > summary::before { content: '＋ '; }
+.city-manual[open] > summary::before { content: '－ '; }
+.city-manual .row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+.city-manual .field { margin-bottom: 0; }
+.manual-tip { margin: 8px 0 0; line-height: 1.6; }
