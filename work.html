@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>作品说明 · AI 产品知识应用</title>
+<meta name="description" content="一个 AI 产品经理知识应用：180 课、5 个模块、离线可用。这份说明写的是我在其中做的判断。">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="作品说明">
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/home-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/home-192.png">
+
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0f1a" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+
+<style>
+:root{
+  --bg:#f5f6f8; --surface:#fff; --surface-2:#eef1f5; --text:#14181f;
+  --muted:#7b8494; --line:#e3e6eb; --accent:#2f6df6; --accent-soft:rgba(47,109,246,.10);
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#0a0f1a; --surface:#141b2b; --surface-2:#1c2536; --text:#e8ecf3;
+         --muted:#8b95a8; --line:#232e44; --accent:#5b8cff; --accent-soft:rgba(91,140,255,.16); }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI","Microsoft YaHei",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:calc(var(--safe-t) + 26px) 20px calc(var(--safe-b) + 48px);
+}
+.page{max-width:640px;margin:0 auto}
+
+/* ---------- 头部 ---------- */
+.kicker{
+  display:inline-block;padding:4px 11px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent);
+  font-size:12.5px;font-weight:600;letter-spacing:.3px;
+}
+h1{font-size:27px;line-height:1.3;margin:14px 0 10px;letter-spacing:-.4px}
+.sub{margin:0 0 22px;color:var(--muted);font-size:15px}
+.sub b{color:var(--text);font-weight:600}
+
+/* ---------- 主按钮 ---------- */
+.cta{
+  display:block;text-align:center;text-decoration:none;
+  padding:16px;border-radius:15px;
+  background:var(--accent);color:#fff;
+  font-size:17px;font-weight:600;
+  box-shadow:0 8px 22px rgba(47,109,246,.3);
+}
+.cta:active{transform:scale(.985)}
+.cta small{display:block;margin-top:3px;font-size:12.5px;font-weight:400;opacity:.85}
+
+/* ---------- 区块 ---------- */
+h2{
+  font-size:17px;margin:36px 0 12px;letter-spacing:-.2px;
+  padding-left:11px;border-left:3px solid var(--accent);line-height:1.4;
+}
+.card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:15px;padding:17px;margin-bottom:12px;
+}
+.card p{margin:0 0 12px}
+.card p:last-child{margin-bottom:0}
+p{font-size:15.5px;line-height:1.85}
+
+/* ---------- 分工表 ---------- */
+.role{display:flex;gap:13px;padding:11px 0;border-bottom:1px solid var(--line)}
+.role:last-child{border-bottom:0;padding-bottom:0}
+.role:first-child{padding-top:0}
+.role-k{
+  flex:none;width:5.2em;font-size:13.5px;font-weight:600;
+  color:var(--accent);line-height:1.75;
+}
+.role-v{flex:1;min-width:0;font-size:14.5px;line-height:1.75}
+
+/* ---------- 判断条目 ---------- */
+.point{margin-bottom:22px}
+.point:last-child{margin-bottom:0}
+.point-n{
+  display:inline-block;padding:2px 9px;border-radius:999px;
+  background:var(--surface-2);color:var(--muted);
+  font-size:12px;font-weight:600;margin-bottom:7px;
+}
+.point h3{font-size:16px;margin:0 0 7px;line-height:1.5;letter-spacing:-.2px}
+.point p{margin:0 0 10px;font-size:15px;line-height:1.85}
+.point p:last-child{margin-bottom:0}
+
+/* ---------- 引用块 ---------- */
+.note{
+  margin:14px 0 0;padding:12px 15px;
+  border-left:3px solid var(--line);border-radius:0 10px 10px 0;
+  background:var(--surface-2);color:var(--muted);
+  font-size:14px;line-height:1.8;
+}
+
+/* ---------- 流程条 ---------- */
+.flow{
+  display:flex;flex-wrap:wrap;gap:7px;align-items:center;
+  margin:4px 0 0;
+}
+.flow span{
+  padding:5px 11px;border-radius:9px;background:var(--surface-2);
+  font-size:13.5px;white-space:nowrap;
+}
+.flow i{color:var(--muted);font-style:normal;font-size:12px}
+
+/* ---------- 页脚 ---------- */
+.foot{
+  margin-top:38px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:14px;line-height:1.9;
+}
+.foot b{color:var(--text);font-weight:600}
+.foot a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <span class="kicker">作品说明</span>
+  <h1>一个 AI 产品知识应用</h1>
+  <p class="sub">
+    <b>180 课</b> · <b>5 个模块</b> · 手机上能离线用 · 已经上线
+  </p>
+
+  <a class="cta" href="./learn/">
+    打开看看 →
+    <small>手机上「添加到主屏幕」后，离线也能看</small>
+  </a>
+
+  <h2>我做了什么</h2>
+  <div class="card">
+    <div class="role">
+      <div class="role-k">需求拆解</div>
+      <div class="role-v">决定做「每日一课」而不是「知识库」——因为知识库没人会天天打开。</div>
+    </div>
+    <div class="role">
+      <div class="role-k">内容体系</div>
+      <div class="role-v">180 课的大纲、5 个模块的划分、每日推送的排序规则。</div>
+    </div>
+    <div class="role">
+      <div class="role-k">验收标准</div>
+      <div class="role-v">内容重复度、空话词、自测题答案分布——都要跑脚本卡一遍才算过。</div>
+    </div>
+    <div class="role">
+      <div class="role-k">上线交付</div>
+      <div class="role-v">部署、图标、离线缓存、手机端安装，以及一份给人看的说明文档。</div>
+    </div>
+    <p class="note">
+      代码是我<b>用 AI 协作完成</b>的。这一点我不想含糊——把「AI 写的」说成「我写的」很容易，
+      但经不起追问，也没有意义。我更想说的是下面这几个判断。
+    </p>
+  </div>
+
+  <h2>三个我自己做的判断</h2>
+  <div class="card">
+
+    <div class="point">
+      <span class="point-n">01</span>
+      <h3>内容必须先定体系，再动手写</h3>
+      <p>我没有「想到哪写到哪」，而是先把 180 课的目录全部定死——技术基础、产品方法论、落地实践、商业与行业、协作与沟通，每个模块 36 课。目录定完了才开始写内容。</p>
+      <p>这个顺序的意义在于：<b>它保证了后面不会重复、不会跑偏。</b>如果反过来先写再归类，写到第 50 课一定会发现前面写重了。</p>
+    </div>
+
+    <div class="point">
+      <span class="point-n">02</span>
+      <h3>推送顺序要轮转，不能按模块排</h3>
+      <p>如果按模块顺序推，会变成「连着 36 天只讲技术」——大多数人第 5 天就不来了。</p>
+      <p>所以我把每日顺序改成 5 个模块轮转：技术 → 方法论 → 实践 → 商业 → 协作 → 技术……<b>每一周都能摸到不同层面，而不是一个月泡在同一个话题里。</b></p>
+    </div>
+
+    <div class="point">
+      <span class="point-n">03</span>
+      <h3>交付前必须先自检</h3>
+      <p>内容写完之后我没有直接交，而是跑了脚本检查三件事：重复条目、空话词（「赋能」「闭环」这类）、以及自测题的正确答案是否集中在同一个位置。</p>
+      <p><b>不是写完就算交付。</b>这套「交付前先卡一遍」的动作，我理解是运营的基本功。</p>
+    </div>
+
+  </div>
+
+  <h2>一个我较真的例子</h2>
+  <div class="card">
+    <p>做其中另一个功能时，我发现它的结果是<b>纯随机数生成的</b>——界面上写着依据，实际一个都没用到。</p>
+    <p>这种情况很容易糊过去，反正是自己用。但我没有放着不管，而是把真实的历法算法（干支、节气、月相）接了进来，并且<b>拿公开的天文台数据逐项对账</b>，确认节气时刻误差在 8 分钟内、朔望时刻误差在 2 分钟内。</p>
+    <p><b>发现问题 → 追到底 → 用数据验证。</b>我觉得这个习惯比任何单项技能都值钱。</p>
+  </div>
+
+  <h2>和产品运营的关系</h2>
+  <div class="card">
+    <p>我理解这个岗位要的是「素材交付能力」。这次做的事，其实就是一条完整的素材交付链路：</p>
+    <div class="flow">
+      <span>定体系</span><i>→</i>
+      <span>定标准</span><i>→</i>
+      <span>生产</span><i>→</i>
+      <span>自检</span><i>→</i>
+      <span>交付</span><i>→</i>
+      <span>可复盘</span>
+    </div>
+    <p style="margin-top:14px">
+      应用里的存档、收藏、笔记和进度，是为了让内容<b>能被用起来、能被回看</b>——
+      交付不是「发出去」就结束了，而是要能持续被使用。
+    </p>
+  </div>
+
+  <h2>关于这个工具箱</h2>
+  <div class="card">
+    <p>这个应用是工具箱里的一个。另外三个我没有在这页多说：其中「简历岗位匹配」是我自己找工作在用的工具，另外两个偏娱乐向的小玩意。</p>
+    <p>从首页可以进，只是它们和这次想说明的事情关系不大。</p>
+  </div>
+
+  <div class="foot">
+    <p>有任何想了解的，欢迎直接问我。</p>
+  </div>
+
+</div>
+</body>
+</html>
