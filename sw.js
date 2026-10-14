@@ -3,7 +3,7 @@
    三个工具页都注册的是这个文件（子目录里写 '../sw.js'）。
    改了任何前端文件后，把 CACHE 的版本号 +1，手机上打开两次即可更新。
    ============================================================ */
-const CACHE = 'myapps-v4';
+const CACHE = 'myapps-v5';
 
 const ASSETS = [
   './',
@@ -21,8 +21,11 @@ const ASSETS = [
   './fortune/',
   './fortune/index.html',
   './fortune/fortune.css',
+  './fortune/cities.css',
   './fortune/fortune.js',
   './fortune/almanac.js',
+  './fortune/cities.js',
+  './fortune/citykit.js',
   './fortune/signs-data.js',
   './fortune/manifest.webmanifest',
 
